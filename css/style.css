@@ -1,0 +1,484 @@
+/* === 现代化移动端甜美视觉系统 === */
+:root {
+  --primary-pink: #ff5e7e;
+  --secondary-pink: #ff8fa3;
+  --accent-gold: #f6ad55;
+  --bg-gradient: linear-gradient(145deg, #fff0f3 0%, #ffe3e8 40%, #fff7ed 100%);
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --text-main: #2d3748;
+  --text-muted: #718096;
+  --radius-lg: 24px;
+  --radius-sm: 12px;
+  --shadow-card: 0 14px 40px rgba(255, 94, 126, 0.18);
+  --shadow-btn: 0 8px 20px rgba(255, 94, 126, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: var(--bg-gradient);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* 移动端外层容器 */
+.app-container {
+  width: 100%;
+  max-width: 440px;
+  min-height: 100vh;
+  padding: 24px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 步骤容器 */
+.step-section {
+  display: none;
+  width: 100%;
+  animation: fadeInSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.step-section.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 通用毛玻璃卡片 */
+.glass-card {
+  width: 100%;
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--radius-lg);
+  padding: 28px 22px;
+  box-shadow: var(--shadow-card);
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  position: relative;
+}
+
+/* ================= 1. 信封封面 ================= */
+.envelope-card {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.envelope-wrapper {
+  position: relative;
+  width: 140px;
+  height: 110px;
+  margin: 0 auto 30px;
+  cursor: pointer;
+  animation: floatBounce 3s ease-in-out infinite;
+}
+
+.envelope-icon {
+  font-size: 88px;
+  line-height: 1;
+  filter: drop-shadow(0 12px 20px rgba(255, 94, 126, 0.28));
+}
+
+.heart-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -20%);
+  font-size: 26px;
+  animation: pulseHeart 1.4s infinite;
+}
+
+@keyframes floatBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulseHeart {
+  0%, 100% { transform: translate(-50%, -20%) scale(1); }
+  50% { transform: translate(-50%, -20%) scale(1.22); }
+}
+
+.envelope-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primary-pink);
+  margin-bottom: 12px;
+}
+
+.envelope-subtitle {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ================= 2. 正式信件 ================= */
+.letter-header {
+  border-bottom: 2px dashed #fed7e2;
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+}
+
+.letter-header h3 {
+  font-size: 18px;
+  color: var(--primary-pink);
+}
+
+.letter-body {
+  font-size: 15px;
+  line-height: 1.85;
+  color: #4a5568;
+}
+
+.letter-body p {
+  margin-bottom: 14px;
+}
+
+.letter-stamp-sign {
+  text-align: right;
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ================= 3. 约会流程与选择 ================= */
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-main);
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.section-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.agenda-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  position: relative;
+}
+
+.agenda-item {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--primary-pink);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.agenda-time-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary-pink);
+  background: #fff0f3;
+  padding: 3px 8px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.agenda-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text-main);
+}
+
+.agenda-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* 选项药丸 Pill */
+.options-container {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed #edf2f7;
+}
+
+.options-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-gold);
+  margin-bottom: 8px;
+}
+
+.options-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.option-pill {
+  border: 1.5px solid #edf2f7;
+  background: #f7fafc;
+  color: #4a5568;
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.option-pill.active {
+  background: #fff0f3;
+  color: var(--primary-pink);
+  border-color: var(--secondary-pink);
+  font-weight: 600;
+  transform: scale(1.04);
+}
+
+/* ================= 4. 专属承诺 ================= */
+.promise-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.promise-item {
+  display: flex;
+  align-items: center;
+  background: #fdf2f4;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  color: #4a5568;
+}
+
+.promise-icon {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+/* ================= 5. 审批决策区 ================= */
+.decision-card {
+  text-align: center;
+  padding: 40px 24px;
+}
+
+.decision-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  animation: floatBounce 2.5s ease-in-out infinite;
+}
+
+.decision-btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 30px;
+  width: 100%;
+  position: relative;
+  min-height: 140px;
+}
+
+/* 按钮通用样式 */
+.btn-primary {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--primary-pink) 0%, #ff758c 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 30px;
+  font-size: 17px;
+  font-weight: 600;
+  box-shadow: var(--shadow-btn);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+}
+
+.btn-secondary {
+  width: 100%;
+  padding: 14px;
+  background: #f1f3f5;
+  color: #868e96;
+  border: none;
+  border-radius: 30px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.15s ease-out;
+}
+
+/* ================= 6. 专属通票 Ticket ================= */
+.ticket-container {
+  width: 100%;
+  position: relative;
+}
+
+.vip-ticket {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #fed7e2;
+}
+
+.ticket-header {
+  background: linear-gradient(135deg, #ff6b8b, #ff8fa3);
+  color: white;
+  padding: 24px 20px;
+  text-align: center;
+  position: relative;
+}
+
+.ticket-header h2 {
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.ticket-badge {
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.25);
+  padding: 4px 12px;
+  border-radius: 12px;
+  display: inline-block;
+  letter-spacing: 1px;
+}
+
+.ticket-divider {
+  position: relative;
+  height: 24px;
+  background: #ffffff;
+}
+
+.ticket-divider::before,
+.ticket-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  background: var(--bg-gradient);
+  border-radius: 50%;
+}
+
+.ticket-divider::before { left: -12px; }
+.ticket-divider::after { right: -12px; }
+
+.ticket-divider .cut-line {
+  border-top: 2px dashed #fed7e2;
+  margin: 11px 24px 0;
+}
+
+.ticket-body {
+  padding: 20px 24px 30px;
+  position: relative;
+}
+
+.ticket-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  font-size: 14px;
+}
+
+.ticket-label {
+  color: var(--text-muted);
+}
+
+.ticket-val {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* 红色批准公章 */
+.stamp-approved {
+  position: absolute;
+  right: 20px;
+  bottom: 30px;
+  width: 100px;
+  height: 100px;
+  border: 3.5px solid #e53e3e;
+  border-radius: 50%;
+  color: #e53e3e;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: 800;
+  transform: rotate(-18deg);
+  opacity: 0.88;
+  pointer-events: none;
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.2);
+  animation: stampDrop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes stampDrop {
+  0% {
+    opacity: 0;
+    transform: scale(2.8) rotate(-40deg);
+  }
+  100% {
+    opacity: 0.88;
+    transform: scale(1) rotate(-18deg);
+  }
+}
+
+.stamp-text-cn {
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+
+.stamp-text-en {
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.ticket-footer-tip {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 20px;
+  line-height: 1.6;
+}
+
+.btn-group-footer {
+  margin-top: 24px;
+  width: 100%;
+}

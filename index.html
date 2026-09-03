@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>💌 专属约会邀请函</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- 第一幕：心动信封封面 -->
+    <section id="step-envelope" class="step-section active">
+      <div class="glass-card envelope-card">
+        <div class="envelope-wrapper" id="btn-open-envelope">
+          <div class="envelope-icon">✉️</div>
+          <div class="heart-badge">💖</div>
+        </div>
+        <h2 class="envelope-title">TO: <span class="receiver-name-text">小杰</span></h2>
+        <p class="envelope-subtitle">你收到了一份专属定制的《约会申请函》<br>点击信封开启惊喜 ✨</p>
+        
+        <div class="btn-group-footer">
+          <button type="button" class="btn-primary" onclick="document.getElementById('btn-open-envelope').click()">
+            <span>拆开信件</span>
+            <span>💌</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 第二幕：邀请寄语 / 诚挚开场白 -->
+    <section id="step-letter" class="step-section">
+      <div class="glass-card">
+        <div class="letter-header">
+          <h3 id="letter-greeting">展信舒颜，小杰：</h3>
+        </div>
+        <div class="letter-body" id="letter-paragraphs">
+          <!-- 动态从 config.js 注入 -->
+        </div>
+        <div class="letter-stamp-sign">
+          —— 期待赴约的发起人 敬上 🌸
+        </div>
+
+        <div class="btn-group-footer">
+          <button type="button" class="btn-primary" id="btn-letter-next">
+            <span>查看约会行程安排</span>
+            <span>👉</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 第三幕：约会流程与心愿安排 -->
+    <section id="step-agenda" class="step-section">
+      <div class="glass-card">
+        <h3 class="section-title">📅 约会行程方案</h3>
+        <p class="section-subtitle">专属于我们的惬意时光规划</p>
+
+        <div class="agenda-timeline" id="agenda-list">
+          <!-- 动态从 config.js 注入 -->
+        </div>
+
+        <div class="btn-group-footer">
+          <button type="button" class="btn-primary" id="btn-agenda-next">
+            <span>确认行程并查看特权保障</span>
+            <span>✨</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 第四幕：专属特权与承诺 -->
+    <section id="step-promises" class="step-section">
+      <div class="glass-card">
+        <h3 class="section-title">📜 男嘉宾出行承诺书</h3>
+        <p class="section-subtitle">为保障本次约会的极佳体验，郑重签署以下条款：</p>
+
+        <ul class="promise-list" id="promise-list">
+          <!-- 动态从 config.js 注入 -->
+        </ul>
+
+        <div class="btn-group-footer">
+          <button type="button" class="btn-primary" id="btn-promise-next">
+            <span>前往批复约会申请</span>
+            <span>📝</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 第五幕：终极决策审批 -->
+    <section id="step-decision" class="step-section">
+      <div class="glass-card decision-card">
+        <div class="decision-icon">🌹</div>
+        <h3 class="section-title">请 <span class="receiver-name-text">小杰</span> 审阅批示</h3>
+        <p class="section-subtitle">是否批准本次约会申请？</p>
+
+        <div class="decision-btn-group">
+          <!-- 同意按钮 -->
+          <button type="button" class="btn-primary" id="btn-accept">
+            <span>批准约会，准许同行 ❤️</span>
+          </button>
+
+          <!-- 逃跑拒绝按钮 -->
+          <button type="button" class="btn-secondary" id="btn-reject">
+            <span>狠心拒绝 💔</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 第六幕：通票生成与狂欢 -->
+    <section id="step-ticket" class="step-section">
+      <div class="ticket-container">
+        <div class="vip-ticket">
+          <div class="ticket-header">
+            <span class="ticket-badge">OFFICIAL PASS</span>
+            <h2>🎫 浪漫约会专属通行凭证</h2>
+            <p>NO. DATE-2026-VIP001</p>
+          </div>
+
+          <div class="ticket-divider">
+            <div class="cut-line"></div>
+          </div>
+
+          <div class="ticket-body">
+            <div class="ticket-row">
+              <span class="ticket-label">特邀嘉宾：</span>
+              <span class="ticket-val receiver-name-text">小杰</span>
+            </div>
+            <div class="ticket-row">
+              <span class="ticket-label">同行人员：</span>
+              <span class="ticket-val">发起人</span>
+            </div>
+            <div class="ticket-row">
+              <span class="ticket-label">批复日期：</span>
+              <span class="ticket-val" id="ticket-date">2026.09.03</span>
+            </div>
+            <div class="ticket-row">
+              <span class="ticket-label">专属偏好：</span>
+              <span class="ticket-val" id="ticket-user-choice">精选美食之旅</span>
+            </div>
+            <div class="ticket-row">
+              <span class="ticket-label">有效期限：</span>
+              <span class="ticket-val" style="color: #ff5e7e;">永久有效 · 不可撤销</span>
+            </div>
+
+            <!-- 审批通过红色公章 -->
+            <div class="stamp-approved">
+              <span class="stamp-text-cn">审批通过</span>
+              <span class="stamp-text-en">APPROVED</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="ticket-footer-tip">
+          📸 长按或截屏此凭证发给发起人<br>
+          已成功向发起人微信同步审批状态，不见不散！✨
+        </p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- 配置文件与逻辑脚本 -->
+  <script src="js/config.js"></script>
+  <script src="js/confetti.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
