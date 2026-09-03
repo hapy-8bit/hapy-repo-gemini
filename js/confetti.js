@@ -1,6 +1,5 @@
 /**
- * 轻量级撒花与粉红爱心动画粒子引擎
- * 纯原生 Canvas 编写，无需依赖第三方 CDN，加载零延迟
+ * 晴空海盐蓝与奶油黄粒子撒花引擎
  */
 (function() {
   function launchCelebration() {
@@ -25,18 +24,18 @@
     });
 
     const particles = [];
-    const colors = ['#ff4b72', '#ff85a2', '#ffd166', '#06d6a0', '#118ab2', '#ff70a6', '#ff9770'];
+    // 少女感蓝黄与明朗白配色
+    const colors = ['#38bdf8', '#60a5fa', '#fde047', '#fef08a', '#fbbf24', '#ffffff', '#93c5fd'];
 
-    // 生成爱心与彩屑粒子
-    for (let i = 0; i < 90; i++) {
+    for (let i = 0; i < 95; i++) {
       particles.push({
         x: width / 2 + (Math.random() - 0.5) * 60,
         y: height / 2 + (Math.random() - 0.5) * 60,
-        vx: (Math.random() - 0.5) * 14,
+        vx: (Math.random() - 0.5) * 15,
         vy: (Math.random() - 0.8) * 18 - 4,
         size: Math.random() * 9 + 6,
         color: colors[Math.floor(Math.random() * colors.length)],
-        isHeart: Math.random() > 0.45,
+        isHeart: Math.random() > 0.4,
         rotation: Math.random() * Math.PI * 2,
         rotSpeed: (Math.random() - 0.5) * 0.1,
         alpha: 1,
@@ -70,8 +69,8 @@
       for (let p of particles) {
         p.x += p.vx;
         p.y += p.vy;
-        p.vy += 0.35; // 重力
-        p.vx *= 0.98; // 阻力
+        p.vy += 0.35;
+        p.vx *= 0.98;
         p.rotation += p.rotSpeed;
         p.alpha -= p.decay;
 
@@ -85,7 +84,7 @@
             ctx.rotate(p.rotation);
             ctx.globalAlpha = Math.max(0, p.alpha);
             ctx.fillStyle = p.color;
-            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.65);
             ctx.restore();
           }
         }
