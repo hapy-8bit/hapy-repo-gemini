@@ -482,3 +482,15 @@ body {
   margin-top: 24px;
   width: 100%;
 }
+
+.choice-tag {
+  display: inline-block;
+  background: #fff0f3;
+  color: #ff5e7e;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  margin: 2px 0;
+  font-weight: 500;
+}
+

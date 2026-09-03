@@ -17,8 +17,8 @@
           <div class="envelope-icon">✉️</div>
           <div class="heart-badge">💖</div>
         </div>
-        <h2 class="envelope-title">TO: <span class="receiver-name-text">小杰</span></h2>
-        <p class="envelope-subtitle">你收到了一份专属定制的《约会申请函》<br>点击信封开启惊喜 ✨</p>
+        <h2 class="envelope-title">TO: <span class="receiver-name-text">小杰宝宝</span></h2>
+        <p class="envelope-subtitle">你收到了一份来自 <span class="sender-name-text">航哥</span> 的专属《约会申请函》<br>点击信封开启周六浪漫惊喜 ✨</p>
         
         <div class="btn-group-footer">
           <button type="button" class="btn-primary" onclick="document.getElementById('btn-open-envelope').click()">
@@ -33,29 +33,29 @@
     <section id="step-letter" class="step-section">
       <div class="glass-card">
         <div class="letter-header">
-          <h3 id="letter-greeting">展信舒颜，小杰：</h3>
+          <h3 id="letter-greeting">展信舒颜，小杰宝宝：</h3>
         </div>
         <div class="letter-body" id="letter-paragraphs">
           <!-- 动态从 config.js 注入 -->
         </div>
         <div class="letter-stamp-sign">
-          —— 期待赴约的发起人 敬上 🌸
+          —— 期待赴约的 <span class="sender-name-text">航哥</span> 敬上 🌸
         </div>
 
         <div class="btn-group-footer">
           <button type="button" class="btn-primary" id="btn-letter-next">
-            <span>查看约会行程安排</span>
+            <span>查看周六专属行程安排</span>
             <span>👉</span>
           </button>
         </div>
       </div>
     </section>
 
-    <!-- 第三幕：约会流程与心愿安排 -->
+    <!-- 第三幕：约会流程与心愿挑选 -->
     <section id="step-agenda" class="step-section">
       <div class="glass-card">
-        <h3 class="section-title">📅 约会行程方案</h3>
-        <p class="section-subtitle">专属于我们的惬意时光规划</p>
+        <h3 class="section-title">📅 周六心动日程方案</h3>
+        <p class="section-subtitle">专属于航哥和小杰宝宝的惬意时光规划</p>
 
         <div class="agenda-timeline" id="agenda-list">
           <!-- 动态从 config.js 注入 -->
@@ -63,7 +63,7 @@
 
         <div class="btn-group-footer">
           <button type="button" class="btn-primary" id="btn-agenda-next">
-            <span>确认行程并查看特权保障</span>
+            <span>确认心选行程并查看航哥承诺</span>
             <span>✨</span>
           </button>
         </div>
@@ -74,7 +74,7 @@
     <section id="step-promises" class="step-section">
       <div class="glass-card">
         <h3 class="section-title">📜 男嘉宾出行承诺书</h3>
-        <p class="section-subtitle">为保障本次约会的极佳体验，郑重签署以下条款：</p>
+        <p class="section-subtitle">为保障本次约会的极佳体验，航哥郑重签署以下条款：</p>
 
         <ul class="promise-list" id="promise-list">
           <!-- 动态从 config.js 注入 -->
@@ -93,8 +93,8 @@
     <section id="step-decision" class="step-section">
       <div class="glass-card decision-card">
         <div class="decision-icon">🌹</div>
-        <h3 class="section-title">请 <span class="receiver-name-text">小杰</span> 审阅批示</h3>
-        <p class="section-subtitle">是否批准本次约会申请？</p>
+        <h3 class="section-title">请 <span class="receiver-name-text">小杰宝宝</span> 审阅批示</h3>
+        <p class="section-subtitle">是否批准本次周六约会出行？</p>
 
         <div class="decision-btn-group">
           <!-- 同意按钮 -->
@@ -116,8 +116,8 @@
         <div class="vip-ticket">
           <div class="ticket-header">
             <span class="ticket-badge">OFFICIAL PASS</span>
-            <h2>🎫 浪漫约会专属通行凭证</h2>
-            <p>NO. DATE-2026-VIP001</p>
+            <h2>🎫 专属浪漫约会通行凭证</h2>
+            <p>NO. DATE-0905-VIP</p>
           </div>
 
           <div class="ticket-divider">
@@ -127,19 +127,21 @@
           <div class="ticket-body">
             <div class="ticket-row">
               <span class="ticket-label">特邀嘉宾：</span>
-              <span class="ticket-val receiver-name-text">小杰</span>
+              <span class="ticket-val receiver-name-text">小杰宝宝</span>
             </div>
             <div class="ticket-row">
               <span class="ticket-label">同行人员：</span>
-              <span class="ticket-val">发起人</span>
+              <span class="ticket-val sender-name-text">航哥</span>
             </div>
             <div class="ticket-row">
               <span class="ticket-label">批复日期：</span>
-              <span class="ticket-val" id="ticket-date">2026.09.03</span>
+              <span class="ticket-val" id="ticket-date">9月5日</span>
             </div>
-            <div class="ticket-row">
-              <span class="ticket-label">专属偏好：</span>
-              <span class="ticket-val" id="ticket-user-choice">精选美食之旅</span>
+            <div class="ticket-row" style="align-items: flex-start;">
+              <span class="ticket-label" style="min-width: 75px;">心选清单：</span>
+              <div class="ticket-val" id="ticket-user-choice" style="text-align: right; font-size: 13px; line-height: 1.6;">
+                电影 · 拼豆 · 抓娃娃 · 夕阳 · 压马路
+              </div>
             </div>
             <div class="ticket-row">
               <span class="ticket-label">有效期限：</span>
@@ -155,8 +157,8 @@
         </div>
 
         <p class="ticket-footer-tip">
-          📸 长按或截屏此凭证发给发起人<br>
-          已成功向发起人微信同步审批状态，不见不散！✨
+          📸 长按或截屏此凭证发给航哥<br>
+          此凭证一经批复永久生效，周六不见不散！✨
         </p>
       </div>
     </section>

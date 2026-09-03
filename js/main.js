@@ -6,7 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 1. 动态渲染基础信息
   const receiverElements = document.querySelectorAll('.receiver-name-text');
-  receiverElements.forEach(el => el.textContent = config.receiverName || "小杰");
+  receiverElements.forEach(el => el.textContent = config.receiverName || "小杰宝宝");
+
+  const senderElements = document.querySelectorAll('.sender-name-text');
+  senderElements.forEach(el => el.textContent = config.senderName || "航哥");
 
   // 渲染开场白
   const greetingEl = document.getElementById('letter-greeting');
@@ -25,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (item.options && item.options.length > 0) {
         optionsHtml = `
           <div class="options-container" data-agenda-index="${index}">
-            <div class="options-label">✨ 请小杰挑选心仪项（可单选）：</div>
+            <div class="options-label">✨ 请小杰宝宝点击选择心仪项：</div>
             <div class="options-pills">
               ${item.options.map((opt, i) => `
                 <button type="button" class="option-pill ${i === 0 ? 'active' : ''}" data-value="${opt}">
@@ -105,22 +108,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 3. 调皮逃跑的【狠心拒绝】按钮交互
   const rejectBtn = document.getElementById('btn-reject');
-  const decisionArea = document.querySelector('.decision-btn-group');
   let dodgeCount = 0;
   const dodgePhrases = [
     "再想想嘛🥺",
+    "航哥会难过的💔",
     "点不中吧~😜",
-    "按钮滑走啦！",
-    "真的忍心拒绝吗💔",
-    "系统故障：无法驳回",
-    "乖，点左边那个❤️"
+    "按钮溜走啦！",
+    "真的忍心拒绝吗🥺",
+    "系统故障：只能同意哦❤️"
   ];
 
   function dodgeRejectButton(e) {
     if (e) e.preventDefault();
     dodgeCount++;
     
-    // 更新拒绝按钮文案增加互动感
+    // 更新拒绝按钮文案增加趣味性
     rejectBtn.textContent = dodgePhrases[dodgeCount % dodgePhrases.length];
 
     // 随机计算屏幕内的跳跃位置
@@ -151,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const acceptBtn = document.getElementById('btn-accept');
   if (acceptBtn) {
     acceptBtn.addEventListener('click', () => {
-      // 收集对方选择的项目
+      // 收集对方选择的各项偏好
       const selections = [];
       document.querySelectorAll('.option-pill.active').forEach(pill => {
         selections.push(pill.dataset.value || pill.textContent.trim());
@@ -160,13 +162,14 @@ document.addEventListener('DOMContentLoaded', () => {
       // 填充通票信息
       const ticketChoiceEl = document.getElementById('ticket-user-choice');
       if (ticketChoiceEl) {
-        ticketChoiceEl.textContent = selections.length > 0 ? selections.join('、') : "听小杰的心情安排";
+        ticketChoiceEl.innerHTML = selections.length > 0 
+          ? selections.map(s => `<span class="choice-tag">✨ ${s}</span>`).join('<br>')
+          : "听小杰宝宝的心情安排";
       }
 
       const ticketDateEl = document.getElementById('ticket-date');
       if (ticketDateEl) {
-        const today = new Date();
-        ticketDateEl.textContent = `${today.getFullYear()}.${today.getMonth() + 1}.${today.getDate()}`;
+        ticketDateEl.textContent = config.approvalDate || "9月5日";
       }
 
       // 跳转到通票页面
@@ -190,14 +193,15 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const title = `💌 小杰已接受你的约会邀请！🎉`;
-    const selectedText = choices.length > 0 ? choices.join('，') : '无特定偏好（听你安排）';
+    const title = `💌 小杰宝宝已批准你的周六约会申请！🎉`;
+    const selectedText = choices.length > 0 ? choices.join(' | ') : '听小杰宝宝随时钦点';
     const content = `
-      <h3>💖 约会申请审批通过！</h3>
-      <p><b>批复对象：</b> ${config.receiverName || '小杰'}</p>
-      <p><b>心选内容：</b> ${selectedText}</p>
-      <p><b>批复时间：</b> ${new Date().toLocaleString()}</p>
-      <p>快去微信找 TA 确认具体集合细节吧！✨</p>
+      <h3>💖 周六约会申请审批通过！</h3>
+      <p><b>同行人员：</b> ${config.senderName || '航哥'}</p>
+      <p><b>特邀嘉宾：</b> ${config.receiverName || '小杰宝宝'}</p>
+      <p><b>批复日期：</b> ${config.approvalDate || '9月5日'}</p>
+      <p><b>宝宝心选项目：</b> ${selectedText}</p>
+      <p>快快提前准备好，周五晚上接驾咯！✨</p>
     `;
 
     fetch('https://www.pushplus.plus/send', {
@@ -211,11 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
     })
     .then(res => res.json())
-    .then(data => {
-      console.log("微信推送反馈：", data);
-    })
-    .catch(err => {
-      console.warn("微信推送请求异常：", err);
-    });
+    .then(data => console.log("微信推送反馈：", data))
+    .catch(err => console.warn("微信推送请求异常：", err));
   }
 });
