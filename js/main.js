@@ -1,5 +1,5 @@
 /**
- * 约会邀请主交互逻辑
+ * 约会邀请主交互逻辑（包含移动端防消失与逃跑按钮适配）
  */
 document.addEventListener('DOMContentLoaded', () => {
   const config = window.APP_CONFIG || {};
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-agenda-next')?.addEventListener('click', () => goToStep(3));
   document.getElementById('btn-promise-next')?.addEventListener('click', () => goToStep(4));
 
-  // 3. 调皮逃跑的【狠心拒绝】按钮交互
+  // 3. 调皮逃跑的【狠心拒绝】按钮交互（移动端专属适配，杜绝消失）
   const rejectBtn = document.getElementById('btn-reject');
   let dodgeCount = 0;
   const dodgePhrases = [
@@ -114,37 +114,66 @@ document.addEventListener('DOMContentLoaded', () => {
     "航哥会难过的💔",
     "点不中吧~😜",
     "按钮溜走啦！",
-    "真的忍心拒绝吗🥺",
+    "真忍心拒绝呀🥺",
     "系统故障：只能同意哦❤️"
   ];
 
+  function showCuteToast(msg) {
+    let toast = document.querySelector('.cute-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.className = 'cute-toast';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toast.timer);
+    toast.timer = setTimeout(() => {
+      toast.classList.remove('show');
+    }, 1800);
+  }
+
   function dodgeRejectButton(e) {
-    if (e) e.preventDefault();
+    if (e && e.cancelable) e.preventDefault();
     dodgeCount++;
     
     // 更新拒绝按钮文案增加趣味性
     rejectBtn.textContent = dodgePhrases[dodgeCount % dodgePhrases.length];
 
-    // 随机计算屏幕内的跳跃位置
-    const padding = 20;
-    const btnRect = rejectBtn.getBoundingClientRect();
-    const maxX = window.innerWidth - btnRect.width - padding;
-    const maxY = window.innerHeight - btnRect.height - padding;
+    // 获取移动端真实可视区域，适配 Safari / 微信顶部和底部导航栏
+    const vpWidth = window.visualViewport ? window.visualViewport.width : window.innerWidth;
+    const vpHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    
+    const btnWidth = Math.min(rejectBtn.offsetWidth || 150, 180);
+    const btnHeight = rejectBtn.offsetHeight || 46;
 
-    const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
-    const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+    // 安全边界：严格限制在屏幕可视中心区，顶部避开80px，底部避开120px，左右各留20px
+    const minX = 20;
+    const maxX = Math.max(minX, vpWidth - btnWidth - 20);
+    const minY = 90;
+    const maxY = Math.max(minY, vpHeight - btnHeight - 120);
 
+    const randomX = Math.floor(minX + Math.random() * (maxX - minX));
+    const randomY = Math.floor(minY + Math.random() * (maxY - minY));
+
+    // 保持固定定位并在屏幕中心区域流畅跳动，确保绝不消失
     rejectBtn.style.position = 'fixed';
+    rejectBtn.style.width = `${btnWidth}px`;
     rejectBtn.style.left = `${randomX}px`;
     rejectBtn.style.top = `${randomY}px`;
     rejectBtn.style.zIndex = '9999';
+    rejectBtn.style.margin = '0';
   }
 
   if (rejectBtn) {
     rejectBtn.addEventListener('mouseenter', dodgeRejectButton);
-    rejectBtn.addEventListener('touchstart', dodgeRejectButton, { passive: false });
+    rejectBtn.addEventListener('touchstart', (e) => {
+      dodgeRejectButton(e);
+    }, { passive: false });
+    
     rejectBtn.addEventListener('click', (e) => {
       e.preventDefault();
+      showCuteToast("小杰宝宝，系统提示：拒绝无效，只能批准哦~ 💖");
       dodgeRejectButton();
     });
   }
@@ -169,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const ticketDateEl = document.getElementById('ticket-date');
       if (ticketDateEl) {
-        ticketDateEl.textContent = config.approvalDate || "9月5日";
+        ticketDateEl.textContent = config.approvalDate || "9月4日(晚) - 9月6日";
       }
 
       // 跳转到通票页面
@@ -193,13 +222,13 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const title = `💌 小杰宝宝已批准你的周六约会申请！🎉`;
+    const title = `💌 小杰宝宝已批准你的约会申请！🎉`;
     const selectedText = choices.length > 0 ? choices.join(' | ') : '听小杰宝宝随时钦点';
     const content = `
-      <h3>💖 周六约会申请审批通过！</h3>
+      <h3>💖 约会申请审批通过！</h3>
       <p><b>同行人员：</b> ${config.senderName || '航哥'}</p>
       <p><b>特邀嘉宾：</b> ${config.receiverName || '小杰宝宝'}</p>
-      <p><b>批复日期：</b> ${config.approvalDate || '9月5日'}</p>
+      <p><b>批复日期：</b> ${config.approvalDate || '9月4日(晚) - 9月6日'}</p>
       <p><b>宝宝心选项目：</b> ${selectedText}</p>
       <p>快快提前准备好，周五晚上接驾咯！✨</p>
     `;
